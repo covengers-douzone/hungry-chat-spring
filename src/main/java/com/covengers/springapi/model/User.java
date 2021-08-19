@@ -1,6 +1,7 @@
 package com.covengers.springapi.model;
 
 import lombok.Data;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -30,7 +31,9 @@ public class User {
     @NotNull
     private String role;
     private String token;
+
     @NotNull
+    @CreationTimestamp
     private Date createdAt;
     private Date lastLoginAt;
 }
