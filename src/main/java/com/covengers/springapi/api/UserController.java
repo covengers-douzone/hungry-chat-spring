@@ -3,6 +3,7 @@ package com.covengers.springapi.api;
 
 import com.covengers.springapi.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -13,8 +14,8 @@ public class UserController {
 //    private UserRepository userRepository;
 
     @PostMapping("/api/join")
-    public String Join(@RequestBody User user){
+    public ResponseEntity<?> Join(@RequestBody User user){
         System.out.println(user);
-        return "success";
+        return ResponseEntity.ok(user);
     }
 }
