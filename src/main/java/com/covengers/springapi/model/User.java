@@ -31,7 +31,8 @@ public class User {
     @NotNull
     private String role;
     private String token;
-
+    @NotNull
+    private String phoneNumber;
     @NotNull
     @CreationTimestamp
     private Date createdAt;

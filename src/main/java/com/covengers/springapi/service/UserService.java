@@ -14,20 +14,24 @@ public class UserService {
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public void join(User requestUser){
+    public Boolean join(User requestUser){
         String encPassword = bCryptPasswordEncoder.encode(requestUser.getPassword());
 
-        User user = new User();
-        user.setUsername(requestUser.getUsername()); //email
-        user.setName(requestUser.getName()); //name
-        user.setPassword(encPassword); // encoded password
-        user.setIsDeleted(false); // false == 회원
-        user.setBackgroundImageUrl("backgroundImage"); // dummy data
-        user.setProfileImageUrl("profileImage"); //  dummy data
-        user.setRole("ROLE_USER"); // default role == ROLE_USER
-        user.setNickname(requestUser.getName()); // nickname -> default == name
+        if(userRepository.findByUsername(requestUser.getUsername()) == null) {
+            User user = new User();
+            user.setUsername(requestUser.getUsername()); //email
+            user.setName(requestUser.getName()); //name
+            user.setPassword(encPassword); // encoded password
+            user.setPhoneNumber(requestUser.getPhoneNumber());
+            user.setIsDeleted(false); // false == 회원
+            user.setBackgroundImageUrl("backgroundImage"); // dummy data
+            user.setProfileImageUrl("profileImage"); //  dummy data
+            user.setRole("ROLE_USER"); // default role == ROLE_USER
+            user.setNickname(requestUser.getName()); // nickname -> default == name
 
-        userRepository.save(user);
-        System.out.println(user);
+            userRepository.save(user);
+            return true;
+        }
+        return false;
     }
 }

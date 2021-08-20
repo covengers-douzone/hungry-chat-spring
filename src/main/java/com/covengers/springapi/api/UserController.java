@@ -11,9 +11,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
-import java.io.OutputStream;
-import java.io.PrintWriter;
 
 @RestController
 public class UserController {
@@ -27,8 +24,11 @@ public class UserController {
 
     @PostMapping("/api/join")
     public ResponseEntity<?> Join(@RequestBody User user){
-        userService.join(user);
-        return new ResponseEntity<>(user,HttpStatus.OK);
+        boolean result = userService.join(user);
+        if(result) {
+            return new ResponseEntity<>(user, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
     }
 
     @ResponseBody
