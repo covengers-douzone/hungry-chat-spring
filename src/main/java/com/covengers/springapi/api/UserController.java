@@ -1,9 +1,8 @@
 package com.covengers.springapi.api;
 
 
-import com.covengers.springapi.model.Sms;
+import com.covengers.springapi.dto.Sms;
 import com.covengers.springapi.model.User;
-import com.covengers.springapi.repo.UserRepository;
 import com.covengers.springapi.service.SmsService;
 import com.covengers.springapi.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,25 +13,22 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class UserController {
-
-    @Autowired
-    private UserRepository userRepository;
     @Autowired
     private UserService userService;
     @Autowired
     private SmsService smsService;
 
-    @PostMapping("/api/join")
+    @PostMapping("/api/user/join")
     public ResponseEntity<?> Join(@RequestBody User user){
         boolean result = userService.join(user);
         if(result) {
-            return new ResponseEntity<>(user, HttpStatus.OK);
+            return new ResponseEntity<>(HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
     }
 
     @ResponseBody
-    @PostMapping(value = "/api/sendSms")
+    @PostMapping(value = "/api/user/sendSms")
     public ResponseEntity<?> sendSms(@RequestBody Sms sms) throws Exception {
         Boolean result = smsService.sms(sms);
         if (result) {
@@ -42,13 +38,13 @@ public class UserController {
     }
 
 //---------------------------------------------------
-
-    @PostMapping("/api/login")
-    public ResponseEntity<?> Login(@RequestBody User user){
-        System.out.println(user);
-        User user2 = new User();
-        user2 = userRepository.findByUsername(user.getUsername());
-        System.out.println(user2);
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
+//
+//    @PostMapping("/api/login")
+//    public ResponseEntity<?> Login(@RequestBody User user){
+//        System.out.println(user);
+//        User user2 = new User();
+//        user2 = userRepository.findByUsername(user.getUsername());
+//        System.out.println(user2);
+//        return new ResponseEntity<>(HttpStatus.OK);
+//    }
 }

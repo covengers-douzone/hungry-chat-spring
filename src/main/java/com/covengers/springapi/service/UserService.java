@@ -17,7 +17,8 @@ public class UserService {
     public Boolean join(User requestUser){
         String encPassword = bCryptPasswordEncoder.encode(requestUser.getPassword());
 
-        if(userRepository.findByUsername(requestUser.getUsername()) == null) {
+        System.out.println(!(userRepository.findByUsername(requestUser.getUsername()).isPresent()));
+        if(!(userRepository.findByUsername(requestUser.getUsername()).isPresent())) {
             User user = new User();
             user.setUsername(requestUser.getUsername()); //email
             user.setName(requestUser.getName()); //name
