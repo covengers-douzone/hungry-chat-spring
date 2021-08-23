@@ -3,10 +3,16 @@ package com.covengers.springapi.filter;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.covengers.springapi.Constant;
+import com.covengers.springapi.repo.UserRepository;
+import com.covengers.springapi.service.UserServiceNewImpl;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.http.entity.ContentType;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -33,6 +39,7 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
     private final AuthenticationManager authenticationManager;
     private boolean postOnly = true; // postOnly 로 받을지 true false로 결정, 아래 로직 참고
     private Map<String, String> jsonResult;
+
 
     public CustomAuthenticationFilter(AuthenticationManager authenticationManager){
         this.authenticationManager = authenticationManager;
@@ -78,13 +85,11 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
         }
         String username = obtainUsername(request);
         String password = obtainPassword(request);
-        log.info("Username :{}", username); log.info("Password :{}", password);
-
+        log.info("Username :{}", username); log.info("Pasword :{}", password);
 
         if(username == null){
             username = "";
         }
-
         if(password == null){
             password = "";
         }

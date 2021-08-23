@@ -12,6 +12,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -64,10 +66,19 @@ public class UserServiceNewImpl implements  UserServiceNew, UserDetailsService {
         return userRepository.findAll();
     }
 
-//    @Override
+    @Override
+    public void addTokenToUser(String username, String token) {
+        User addTokenUser = userRepository.findByUsername(username);
+        addTokenUser.setToken(token);
+        userRepository.save(addTokenUser);
+    }
+
+    //    @Override
 //    public void addRoleToUser(String username, String role) {
 //        log.info("Saving new role {} to the database", role);
 //        User user =userRepository.findByUsername(username);
 //        user.setRole(role);
 //    }
+
+
 }

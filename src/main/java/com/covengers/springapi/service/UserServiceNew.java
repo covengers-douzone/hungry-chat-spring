@@ -9,4 +9,5 @@ public interface UserServiceNew {
 //   void addRoleToUser(String username, String role);
    User getUser(String username);
    List<User> getUsers(); // 전체 유저 가져오기
+   void addTokenToUser(String username, String token);
 }
