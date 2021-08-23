@@ -1,6 +1,6 @@
 package com.covengers.springapi.service;
 
-import com.covengers.springapi.model.Sms;
+import com.covengers.springapi.dto.Sms;
 import net.nurigo.java_sdk.api.Message;
 import net.nurigo.java_sdk.exceptions.CoolsmsException;
 import org.json.simple.JSONObject;

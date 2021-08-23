@@ -1,6 +1,8 @@
 package com.covengers.springapi.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -8,13 +10,23 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
+<<<<<<< HEAD
 import java.util.Collection;
+=======
+import java.util.Arrays;
+>>>>>>> 48ce93124e5e030068fb13209f675442a13d50e3
 import java.util.Date;
 import java.util.List;
 
 @Data
 @Entity
+<<<<<<< HEAD
 public class User implements UserDetails {
+=======
+@NoArgsConstructor
+@AllArgsConstructor
+public class User {
+>>>>>>> 48ce93124e5e030068fb13209f675442a13d50e3
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "no")
@@ -43,6 +55,7 @@ public class User implements UserDetails {
     private Date createdAt;
     private Date lastLoginAt;
 
+<<<<<<< HEAD
     //private List<Authority> authorities;
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -172,4 +185,12 @@ public class User implements UserDetails {
     public void setLastLoginAt(Date lastLoginAt) {
         this.lastLoginAt = lastLoginAt;
     }
+=======
+//    public List<String> getRoleList(){
+//        if(this.role.length() > 0){
+//            return Arrays.asList(this.role.split(","));
+//        }
+//        return new ArrayList<>();
+//    }
+>>>>>>> 48ce93124e5e030068fb13209f675442a13d50e3
 }

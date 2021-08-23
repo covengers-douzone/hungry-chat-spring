@@ -1,4 +1,4 @@
-package com.covengers.springapi.model;
+package com.covengers.springapi.dto;
 
 import lombok.Data;
 
