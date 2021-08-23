@@ -31,3 +31,6 @@ build/
 
 ### VS Code ###
 .vscode/
+
+# 설정파일 빼기
+#./src/main/**/Constant
