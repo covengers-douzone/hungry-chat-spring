@@ -10,23 +10,23 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
-<<<<<<< HEAD
+
 import java.util.Collection;
-=======
+
 import java.util.Arrays;
->>>>>>> 48ce93124e5e030068fb13209f675442a13d50e3
+
 import java.util.Date;
 import java.util.List;
 
 @Data
 @Entity
-<<<<<<< HEAD
+
 public class User implements UserDetails {
-=======
+
 @NoArgsConstructor
 @AllArgsConstructor
 public class User {
->>>>>>> 48ce93124e5e030068fb13209f675442a13d50e3
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "no")
@@ -55,7 +55,7 @@ public class User {
     private Date createdAt;
     private Date lastLoginAt;
 
-<<<<<<< HEAD
+
     //private List<Authority> authorities;
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

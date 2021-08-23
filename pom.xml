@@ -90,13 +90,12 @@
             <version>2.2</version>
         </dependency>
 
-<<<<<<< HEAD
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt</artifactId>
             <version>0.9.1</version>
         </dependency>
-=======
+
 <!--         https://mvnrepository.com/artifact/com.auth0/java-jwt-->
         <dependency>
             <groupId>com.auth0</groupId>
@@ -133,7 +132,6 @@
         </dependency>
 
 
->>>>>>> 48ce93124e5e030068fb13209f675442a13d50e3
 
     </dependencies>
 
