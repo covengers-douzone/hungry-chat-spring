@@ -22,7 +22,7 @@ public class UserService {
             user.setUsername(requestUser.getUsername()); //email
             user.setName(requestUser.getName()); //name
             user.setPassword(encPassword); // encoded password
-            user.setPhoneNumber(requestUser.getPhoneNumber());
+            //user.setPhoneNumber(requestUser.getPhoneNumber());
             user.setIsDeleted(false); // false == 회원
             user.setBackgroundImageUrl("backgroundImage"); // dummy data
             user.setProfileImageUrl("profileImage"); //  dummy data
