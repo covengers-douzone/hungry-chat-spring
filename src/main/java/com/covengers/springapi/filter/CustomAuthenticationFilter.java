@@ -3,6 +3,7 @@ package com.covengers.springapi.filter;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.covengers.springapi.Constant;
+import com.covengers.springapi.service.UserServiceNew;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
@@ -33,6 +34,7 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
     private final AuthenticationManager authenticationManager;
     private boolean postOnly = true; // postOnly 로 받을지 true false로 결정, 아래 로직 참고
     private Map<String, String> jsonResult;
+
 
     public CustomAuthenticationFilter(AuthenticationManager authenticationManager){
         this.authenticationManager = authenticationManager;
@@ -134,6 +136,7 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
         Map<String, String> token = new HashMap<>();
         token.put("Authorization", access_token);
         response.setContentType("application/json"); //json 형태로 보내기
+
         new ObjectMapper().writeValue(response.getOutputStream(), token);
     }
 }

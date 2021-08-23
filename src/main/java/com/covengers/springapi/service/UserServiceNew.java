@@ -4,6 +4,7 @@ import com.covengers.springapi.model.User;
 
 import java.util.List;
 
+
 public interface UserServiceNew {
    User saveUser(User user);
    //   void addRoleToUser(String username, String role);
