@@ -6,8 +6,8 @@ import java.util.List;
 
 public interface UserServiceNew {
    User saveUser(User user);
-//   void addRoleToUser(String username, String role);
+   void addRoleToUser(String username, String role);
    User getUser(String username);
    List<User> getUsers(); // 전체 유저 가져오기
-   void addTokenToUser(String username, String token);
+//   void addTokenToUser(String username, String token);
 }
