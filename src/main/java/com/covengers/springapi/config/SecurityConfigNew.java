@@ -3,6 +3,7 @@ package com.covengers.springapi.config;
 
 import com.covengers.springapi.filter.CustomAuthenticationFilter;
 import com.covengers.springapi.filter.CustomAuthorizationFilter;
+import com.covengers.springapi.repo.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
