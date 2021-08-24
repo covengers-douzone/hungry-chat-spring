@@ -31,7 +31,6 @@ public class UserServiceNewImpl implements  UserServiceNew, UserDetailsService {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
     }
-
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByUsername(username);
@@ -46,21 +45,19 @@ public class UserServiceNewImpl implements  UserServiceNew, UserDetailsService {
 
         return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), authorities);
     }
-
     @Override
-    public User saveUser(User user) {
-        log.info("Saving new user to the database");
-        user.setName(user.getName()); //name
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setPhoneNumber(user.getPhoneNumber());
-        user.setIsDeleted(false); // false == 회원
-        user.setBackgroundImageUrl("backgroundImage"); // dummy data
-        user.setProfileImageUrl("profileImage"); //  dummy data
-        user.setRole("ROLE_USER"); // default role == ROLE_USER
-        user.setNickname(user.getName()); // nickname -> default == name
-        return userRepository.save(user);
+    public void saveUser(User user) {
+            log.info("Saving new user to the database");
+            user.setName(user.getName()); //name
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+            user.setPhoneNumber(user.getPhoneNumber());
+            user.setIsDeleted(false); // false == 회원
+            user.setBackgroundImageUrl("backgroundImage"); // dummy data
+            user.setProfileImageUrl("profileImage"); //  dummy data
+            user.setRole("ROLE_USER"); // default role == ROLE_USER
+            user.setNickname(user.getName()); // nickname -> default == name
+            userRepository.save(user);
     }
-
     @Override
     public List<User> getUsers() {
         log.info("Fetching all of users");
@@ -69,6 +66,7 @@ public class UserServiceNewImpl implements  UserServiceNew, UserDetailsService {
 
     @Override
     public User getUser(String username) {
+        log.info("Fetching one user {}", username);
         return userRepository.findByUsername(username);
     }
 
@@ -79,5 +77,11 @@ public class UserServiceNewImpl implements  UserServiceNew, UserDetailsService {
         System.out.println(addTokenUser);
         addTokenUser.setToken(token);
         userRepository.save(addTokenUser);
+    }
+
+    @Override
+    public String findUsername(String name, String phonenumber) {
+        User user = userRepository.findByNameAndPhoneNumber(name, phonenumber);
+        return user.getUsername();
     }
 }
