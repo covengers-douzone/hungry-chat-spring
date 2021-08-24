@@ -1,7 +1,9 @@
-### hungry-chat-spring
+## hungry-chat-spring
 
-###1. spring boot API & JWT 
+### spring boot API & JWT 
 
+
+## Spring
 JSON Web Token 발행
 
 ① 로그인 URL로 접속 시, CustomAuthenticationFilter의 attemptAuthentication() Method가 호출 됨
@@ -27,6 +29,8 @@ JSON Web Token 발행
 ⑪ CustomAuthenticationFilter의 successfulAuthentication() Method에서 JWT 발행
 
 ----
+## Front
+
 
 1. 생성된 JWT 토큰을 헤더에 넣어 Client로 반환 & DB 저장
 2. Client는 받은 Token을 localStorage에 저장
