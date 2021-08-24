@@ -74,7 +74,6 @@ public class UserServiceNewImpl implements  UserServiceNew, UserDetailsService {
     public void addTokenToUser(String username, String token) {
         log.info("Saving new token {} to the database", token);
         User addTokenUser = userRepository.findByUsername(username);
-        System.out.println(addTokenUser);
         addTokenUser.setToken(token);
         userRepository.save(addTokenUser);
     }
