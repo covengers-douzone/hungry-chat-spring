@@ -11,4 +11,5 @@ public interface UserServiceNew {
    User getUser(String username);
    String findUsername(String name, String phonenumber);
    User findByPhoneNumber(String phoneNumber);
+   Long getNo(String username);
 }

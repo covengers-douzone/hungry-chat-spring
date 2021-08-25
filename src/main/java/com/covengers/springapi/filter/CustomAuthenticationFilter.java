@@ -105,6 +105,7 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
 
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
+
         // 1. 토큰 생성
         // 2. 토큰 보내기
         // 3. 헤더 혹은 바디에 데이터를 담아서 보내야한다. (response로)
@@ -131,22 +132,19 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
 
         ApplicationContext applicationContext = ApplicationContextProvider.getApplicationContext();
         UserServiceNewImpl serviceBean = applicationContext.getBean("userServiceNewImpl", UserServiceNewImpl.class);
-
         System.out.println(serviceBean.getUser(user.getUsername()));
         serviceBean.addTokenToUser(user.getUsername(), access_token);
-
-
 
         // Header 로 보내기
         response.setHeader("Authorization", "Bearer "+access_token);
         //response.setHeader("access_token", access_token);
         // response.setHeader("refresh_token", access_token);
 
-
         // Body 로 보내기
         Map<String, String> token = new HashMap<>();
-        token.put("Authorization", access_token);
+        token.put("Authorization", "Bearer "+access_token);
         token.put("username", user.getUsername());
+        token.put("no",serviceBean.getNo(user.getUsername()).toString());
         response.setContentType("application/json"); //json 형태로 보내기
         new ObjectMapper().writeValue(response.getOutputStream(), token);
     }

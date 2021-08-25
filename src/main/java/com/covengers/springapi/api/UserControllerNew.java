@@ -29,7 +29,7 @@ public class UserControllerNew {
         //URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/user/join").toUriString());
         //return ResponseEntity.created(uri).body(userServiceNew.saveUser(user));
         if(userServiceNew.getUser(user.getUsername()) == null){
-            if(userServiceNew.findByPhoneNumber(user.getPhoneNumber()) == null){
+            if(userServiceNew.findByPhoneNumber(user.getPhoneNumber()) != null){
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new JsonResult("이미 등록된 번호입니다.", 400));
             }
             userServiceNew.saveUser(user);
