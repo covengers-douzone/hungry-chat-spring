@@ -83,4 +83,9 @@ public class UserServiceNewImpl implements  UserServiceNew, UserDetailsService {
         User user = userRepository.findByNameAndPhoneNumber(name, phonenumber);
         return user.getUsername();
     }
+
+    @Override
+    public User findByPhoneNumber(String phoneNumber) {
+        return userRepository.findByPhoneNumber(phoneNumber);
+    }
 }

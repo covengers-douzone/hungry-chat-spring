@@ -10,4 +10,5 @@ public interface UserServiceNew {
    void addTokenToUser(String username, String token);
    User getUser(String username);
    String findUsername(String name, String phonenumber);
+   User findByPhoneNumber(String phoneNumber);
 }
