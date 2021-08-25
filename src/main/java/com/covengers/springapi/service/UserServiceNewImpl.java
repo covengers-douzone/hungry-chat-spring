@@ -79,7 +79,7 @@ public class UserServiceNewImpl implements  UserServiceNew, UserDetailsService {
     }
 
     @Override
-    public String findUsername(String name, String phonenumber) {
+    public String findByNameAndPhoneNumber(String name, String phonenumber) {
         User user = userRepository.findByNameAndPhoneNumber(name, phonenumber);
         return user.getUsername();
     }
