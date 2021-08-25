@@ -33,9 +33,10 @@ public class UserControllerNew {
         //URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/user/join").toUriString());
         //return ResponseEntity.created(uri).body(userServiceNew.saveUser(user));
         if(userServiceNew.getUser(user.getUsername()) == null){
-            if(userServiceNew.findByPhoneNumber(user.getPhoneNumber()) == null){
+            if(userServiceNew.findByPhoneNumber(user.getPhoneNumber()) != null){
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new JsonResult("이미 등록된 번호입니다.", 400));
             }
+
             userServiceNew.saveUser(user);
             User member = new User();
             member.setName(user.getName());
@@ -57,7 +58,8 @@ public class UserControllerNew {
     }
 
     @PostMapping("/useridsearch")
-    ResponseEntity<Map<String, String>> userIdSearch(@RequestBody User user, HttpServletResponse response)throws Exception {
+    ResponseEntity<Map<String, String>> userIdSearch(@RequestBody User user)throws Exception {
+
         System.out.println("userinfo: "+userServiceNew.findByNameAndPhoneNumber(user.getName(), user.getPhoneNumber()));
         Map<String, String> map = new HashMap<>();
         map.put("username", userServiceNew.findByNameAndPhoneNumber(user.getName(), user.getPhoneNumber()));
@@ -65,4 +67,16 @@ public class UserControllerNew {
 
         return new ResponseEntity<>(map, HttpStatus.OK);
     }
+
+    @PostMapping("/passwordupdate")
+    ResponseEntity<?> userPasswordUpdate(@RequestBody User data)throws Exception {
+
+        Boolean result = userServiceNew.pwUpdate(data);
+        if(result){
+            return ResponseEntity.ok().build();
+        }
+        return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE).body(new JsonResult("잠시후 다시 시도해 주세요.", 500));
+    }
+
+
 }

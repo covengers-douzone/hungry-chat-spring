@@ -71,6 +71,16 @@ public class UserServiceNewImpl implements  UserServiceNew, UserDetailsService {
     }
 
     @Override
+    public Boolean pwUpdate(User data) {
+        User user = userRepository.findByUsername(data.getUsername());
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        userRepository.save(user);
+
+        return true;
+    }
+
+
+    @Override
     public void addTokenToUser(String username, String token) {
         log.info("Saving new token {} to the database", token);
         User addTokenUser = userRepository.findByUsername(username);
@@ -88,4 +98,6 @@ public class UserServiceNewImpl implements  UserServiceNew, UserDetailsService {
     public User findByPhoneNumber(String phoneNumber) {
         return userRepository.findByPhoneNumber(phoneNumber);
     }
+
+
 }
