@@ -2,12 +2,15 @@ package com.covengers.springapi.filter;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.covengers.springapi.ApplicationContextProvider;
 import com.covengers.springapi.Constant;
 import com.covengers.springapi.service.UserServiceNew;
+import com.covengers.springapi.service.UserServiceNewImpl;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.http.entity.ContentType;
+import org.springframework.context.ApplicationContext;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -129,14 +132,25 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
                 .sign(algorithm);
 
 
-        response.setHeader("Authorization", access_token);
-//        response.setHeader("access_token", access_token);
-//        response.setHeader("refresh_token", access_token);
+        ApplicationContext applicationContext =  ApplicationContextProvider.getApplicationContext();
+        UserServiceNewImpl serviceBean = applicationContext.getBean("userServiceNewImpl", UserServiceNewImpl.class);
 
+        System.out.println(serviceBean.getUser(user.getUsername()));
+        serviceBean.addTokenToUser(user.getUsername(), access_token);
+
+
+
+        // Header 로 보내기
+        response.setHeader("Authorization", "Bearer "+access_token);
+        //response.setHeader("access_token", access_token);
+        // response.setHeader("refresh_token", access_token);
+
+
+        // Body 로 보내기
         Map<String, String> token = new HashMap<>();
         token.put("Authorization", access_token);
+        token.put("username", user.getUsername());
         response.setContentType("application/json"); //json 형태로 보내기
-
         new ObjectMapper().writeValue(response.getOutputStream(), token);
     }
 }

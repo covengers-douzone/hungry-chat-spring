@@ -5,6 +5,7 @@ import com.covengers.springapi.model.User;
 import com.covengers.springapi.repo.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,10 +18,20 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-@Service @RequiredArgsConstructor @Slf4j @Transactional
+@Service
+@Slf4j
+@Transactional
 public class UserServiceNewImpl implements  UserServiceNew, UserDetailsService {
+
+    @Autowired
     private final UserRepository userRepository;
+    @Autowired
     private final PasswordEncoder passwordEncoder;
+
+    public UserServiceNewImpl(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+        this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
+    }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -37,9 +48,8 @@ public class UserServiceNewImpl implements  UserServiceNew, UserDetailsService {
         return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), authorities);
     }
 
-
     @Override
-    public User saveUser(User user) {
+    public void saveUser(User user) {
         log.info("Saving new user to the database");
         user.setName(user.getName()); //name
         user.setPassword(passwordEncoder.encode(user.getPassword()));
@@ -49,7 +59,13 @@ public class UserServiceNewImpl implements  UserServiceNew, UserDetailsService {
         user.setProfileImageUrl("profileImage"); //  dummy data
         user.setRole("ROLE_USER"); // default role == ROLE_USER
         user.setNickname(user.getName()); // nickname -> default == name
-        return userRepository.save(user);
+        userRepository.save(user);
+    }
+
+    @Override
+    public List<User> getUsers() {
+        log.info("Fetching all of users");
+        return userRepository.findAll();
     }
 
     @Override
@@ -59,15 +75,16 @@ public class UserServiceNewImpl implements  UserServiceNew, UserDetailsService {
     }
 
     @Override
-    public List<User> getUsers() {
-        log.info("Fetching all of users");
-        return userRepository.findAll();
+    public void addTokenToUser(String username, String token) {
+        log.info("Saving new token {} to the database", token);
+        User addTokenUser = userRepository.findByUsername(username);
+        addTokenUser.setToken(token);
+        userRepository.save(addTokenUser);
     }
 
-//    @Override
-//    public void addRoleToUser(String username, String role) {
-//        log.info("Saving new role {} to the database", role);
-//        User user =userRepository.findByUsername(username);
-//        user.setRole(role);
-//    }
+    @Override
+    public String findByNameAndPhoneNumber(String name, String phoneNumber) {
+        User user = userRepository.findByNameAndPhoneNumber(name, phoneNumber);
+        return user.getUsername();
+    }
 }
