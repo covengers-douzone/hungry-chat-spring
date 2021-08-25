@@ -28,7 +28,10 @@ public class UserControllerNew {
         // 200 ok 보다는 201 created 가 좀 더 정확한 응답. 아래와 같이 바꾼다. created 는 uri 주소가 필요함
         //URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/user/join").toUriString());
         //return ResponseEntity.created(uri).body(userServiceNew.saveUser(user));
-        if(userServiceNew.getUser(user.getUsername()) == null && userServiceNew.findByPhoneNumber(user.getPhoneNumber()) == null){
+        if(userServiceNew.getUser(user.getUsername()) == null){
+            if(userServiceNew.findByPhoneNumber(user.getPhoneNumber()) == null){
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new JsonResult("이미 등록된 번호입니다.", 400));
+            }
             userServiceNew.saveUser(user);
             User member = new User();
             member.setName(user.getName());
@@ -40,9 +43,6 @@ public class UserControllerNew {
 
     @PostMapping(value = "/sms")
     public ResponseEntity<?> sendSms(@RequestBody Sms sms) throws Exception {
-        if(userServiceNew.findByPhoneNumber(sms.getRecipients()) != null){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new JsonResult("이미 등록된 번호입니다.", 400));
-        }
         System.out.println(sms.getRecipients() + ":" + sms.getText());
         Boolean result = smsService.sms(sms);
         if (result) {
