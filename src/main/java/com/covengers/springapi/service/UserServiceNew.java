@@ -9,7 +9,10 @@ public interface UserServiceNew {
    List<User> getUsers(); // 전체 유저 가져오기
    void addTokenToUser(String username, String token);
    User getUser(String username);
-   String findUsername(String name, String phonenumber);
+   Boolean pwUpdate(User user);
+
+   String findByNameAndPhoneNumber(String name, String phonenumber);
+
    User findByPhoneNumber(String phoneNumber);
    Long getNo(String username);
 }
