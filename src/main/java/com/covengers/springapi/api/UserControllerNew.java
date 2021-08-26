@@ -9,7 +9,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
@@ -29,9 +33,10 @@ public class UserControllerNew {
         //URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/user/join").toUriString());
         //return ResponseEntity.created(uri).body(userServiceNew.saveUser(user));
         if(userServiceNew.getUser(user.getUsername()) == null){
-            if(userServiceNew.findByPhoneNumber(user.getPhoneNumber()) == null){
+            if(userServiceNew.findByPhoneNumber(user.getPhoneNumber()) != null){
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new JsonResult("이미 등록된 번호입니다.", 400));
             }
+
             userServiceNew.saveUser(user);
             User member = new User();
             member.setName(user.getName());
@@ -51,4 +56,27 @@ public class UserControllerNew {
         //503 Service Unavailable
         return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE).body(new JsonResult("다시 시도해주세요", 503));
     }
+
+    @PostMapping("/useridsearch")
+    ResponseEntity<?> userIdSearch(@RequestBody User user)throws Exception {
+        System.out.println("userinfo: "+userServiceNew.findByNameAndPhoneNumber(user.getName(), user.getPhoneNumber()));
+
+        Map<String, String> map = new HashMap<>();
+        map.put("username", userServiceNew.findByNameAndPhoneNumber(user.getName(), user.getPhoneNumber()));
+        System.out.println("map: " + map);
+        return new ResponseEntity<>(map, HttpStatus.OK);
+    }
+
+    @PostMapping("/passwordupdate")
+    ResponseEntity<?> userPasswordUpdate(@RequestBody User data)throws Exception {
+
+        Boolean result = userServiceNew.pwUpdate(data);
+        if(result){
+            System.out.println("result: " + userServiceNew.pwUpdate(data));
+            return ResponseEntity.ok().build();
+        }
+        return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE).body(new JsonResult("잠시후 다시 시도해 주세요.", 500));
+    }
+
+
 }
