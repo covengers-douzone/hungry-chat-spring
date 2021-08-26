@@ -83,7 +83,7 @@ public class UserServiceNewImpl implements  UserServiceNew, UserDetailsService {
     public void addTokenToUser(String username, String token) {
         log.info("Saving new token {} to the database", token);
         User addTokenUser = userRepository.findByUsername(username);
-        addTokenUser.setToken(token);
+        addTokenUser.setToken("Bearer "+token);
         userRepository.save(addTokenUser);
     }
 
@@ -98,5 +98,9 @@ public class UserServiceNewImpl implements  UserServiceNew, UserDetailsService {
         return userRepository.findByPhoneNumber(phoneNumber);
     }
 
-
+    @Override
+    public Long getNo(String username) {
+        User user = userRepository.findByUsername(username);
+        return user.getNo();
+    }
 }
