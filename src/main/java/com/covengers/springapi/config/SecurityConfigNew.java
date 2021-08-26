@@ -5,6 +5,7 @@ import com.covengers.springapi.filter.CustomAuthenticationFilter;
 import com.covengers.springapi.filter.CustomAuthorizationFilter;
 import com.covengers.springapi.repo.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -15,6 +16,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @EnableWebSecurity
@@ -23,12 +25,13 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfigNew extends WebSecurityConfigurerAdapter {
     // @RequiredArgsContructor 로 Injection 자동으로 시켜준다. @Autowired 하지 않아도돼
     private final UserDetailsService userDetailsService;
-    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    @Autowired
+    private final PasswordEncoder passwordEncoder;
     private final CorsConfig corsConfig;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder);
+        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder);
     }
 
     @Override
