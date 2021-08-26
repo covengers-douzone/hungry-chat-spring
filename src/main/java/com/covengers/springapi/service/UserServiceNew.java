@@ -12,6 +12,7 @@ public interface UserServiceNew {
    Boolean pwUpdate(User user);
 
    String findByNameAndPhoneNumber(String name, String phonenumber);
+
    User findByPhoneNumber(String phoneNumber);
 
 }

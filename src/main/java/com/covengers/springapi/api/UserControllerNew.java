@@ -58,13 +58,12 @@ public class UserControllerNew {
     }
 
     @PostMapping("/useridsearch")
-    ResponseEntity<Map<String, String>> userIdSearch(@RequestBody User user)throws Exception {
-
+    ResponseEntity<?> userIdSearch(@RequestBody User user)throws Exception {
         System.out.println("userinfo: "+userServiceNew.findByNameAndPhoneNumber(user.getName(), user.getPhoneNumber()));
+
         Map<String, String> map = new HashMap<>();
         map.put("username", userServiceNew.findByNameAndPhoneNumber(user.getName(), user.getPhoneNumber()));
         System.out.println("map: " + map);
-
         return new ResponseEntity<>(map, HttpStatus.OK);
     }
 
@@ -73,6 +72,7 @@ public class UserControllerNew {
 
         Boolean result = userServiceNew.pwUpdate(data);
         if(result){
+            System.out.println("result: " + userServiceNew.pwUpdate(data));
             return ResponseEntity.ok().build();
         }
         return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE).body(new JsonResult("잠시후 다시 시도해 주세요.", 500));

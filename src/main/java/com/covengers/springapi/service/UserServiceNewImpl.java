@@ -3,6 +3,7 @@ package com.covengers.springapi.service;
 
 import com.covengers.springapi.model.User;
 import com.covengers.springapi.repo.UserRepository;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -10,6 +11,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -17,20 +19,16 @@ import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-
+@RequiredArgsConstructor
 @Service
 @Slf4j
 @Transactional
 public class UserServiceNewImpl implements  UserServiceNew, UserDetailsService {
-    @Autowired
-    private final UserRepository userRepository;
-    @Autowired
-    private final PasswordEncoder passwordEncoder;
 
-    public UserServiceNewImpl(UserRepository userRepository, PasswordEncoder passwordEncoder) {
-        this.userRepository = userRepository;
-        this.passwordEncoder = passwordEncoder;
-    }
+    private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByUsername(username);
@@ -49,7 +47,7 @@ public class UserServiceNewImpl implements  UserServiceNew, UserDetailsService {
     public void saveUser(User user) {
             log.info("Saving new user to the database");
             user.setName(user.getName()); //name
-            user.setPassword(passwordEncoder.encode(user.getPassword()));
+            user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
             user.setPhoneNumber(user.getPhoneNumber());
             user.setIsDeleted(false); // false == 회원
             user.setBackgroundImageUrl("backgroundImage"); // dummy data
@@ -73,9 +71,10 @@ public class UserServiceNewImpl implements  UserServiceNew, UserDetailsService {
     @Override
     public Boolean pwUpdate(User data) {
         User user = userRepository.findByUsername(data.getUsername());
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        String rawPassword = user.getPassword();
+        System.out.println("rawPassword: " + rawPassword);
+        user.setPassword(bCryptPasswordEncoder.encode(data.getPassword()));
         userRepository.save(user);
-
         return true;
     }
 
