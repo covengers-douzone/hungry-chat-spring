@@ -32,7 +32,6 @@ public class SpringApiApplication {
 //            userServiceNew.saveUser(new User(null, "MirabelleTow@gmail.com", "Mirabelle Tow", "1111", "Mirabelle Tow", false, "backgroundImg", "profileImg", "ROLE_USER", "token", "01057289028", date, date));
 //            userServiceNew.saveUser(new User(null, "TownsendSeary@gmail.com", "Townsend Seary", "1111", "Townsend Seary", false, "backgroundImg", "profileImg", "ROLE_USER", "token", "01074980731", date, date));
 //            userServiceNew.saveUser(new User(null, "elsa@gmail.com", "elsa", "1111", "elsa", false, "backgroundImg", "profileImg", "ROLE_USER", "token", "01059284727", date, date));
-//
 //        };
 //    }
 }
