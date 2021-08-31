@@ -53,8 +53,8 @@ public class UserServiceNewImpl implements  UserServiceNew, UserDetailsService {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
             user.setPhoneNumber(user.getPhoneNumber());
             user.setIsDeleted(false); // false == 회원
-            user.setBackgroundImageUrl("backgroundImage"); // dummy data
-            user.setProfileImageUrl("profileImage"); //  dummy data
+            user.setBackgroundImageUrl("http://simpleicon.com/wp-content/uploads/account.png"); // dummy data
+            user.setProfileImageUrl("http://simpleicon.com/wp-content/uploads/account.png"); //  dummy data
             user.setRole("ROLE_USER"); // default role == ROLE_USER
             user.setNickname(user.getName()); // nickname -> default == name
             userRepository.save(user);
