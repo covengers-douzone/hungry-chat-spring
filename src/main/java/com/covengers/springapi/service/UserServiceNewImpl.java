@@ -57,6 +57,7 @@ public class UserServiceNewImpl implements  UserServiceNew, UserDetailsService {
             user.setProfileImageUrl("http://simpleicon.com/wp-content/uploads/account.png"); //  dummy data
             user.setRole("ROLE_USER"); // default role == ROLE_USER
             user.setNickname(user.getName()); // nickname -> default == name
+            user.setComments("covengers");
             userRepository.save(user);
     }
     @Override
