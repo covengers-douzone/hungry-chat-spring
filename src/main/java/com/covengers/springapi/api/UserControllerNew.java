@@ -76,5 +76,9 @@ public class UserControllerNew {
         return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE).body(new JsonResult("잠시후 다시 시도해 주세요.", 500));
     }
 
-
+    @GetMapping("/unknownLogin")
+    public ResponseEntity<?> unknownLogin(){
+            User user = userServiceNew.saveUnknownUser();
+            return ResponseEntity.ok().body(new JsonResult(user));
+    }
 }
