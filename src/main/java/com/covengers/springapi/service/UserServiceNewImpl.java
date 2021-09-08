@@ -107,4 +107,30 @@ public class UserServiceNewImpl implements  UserServiceNew, UserDetailsService {
         User user = userRepository.findByUsername(username);
         return user.getNo();
     }
+
+    @Override
+    public User saveUnknownUser() {
+        log.info("Saving new unknown User to the database");
+        int randomPIN = (int)(Math.random()*9999);
+//        int randomPIN = (int)(Math.random()*9000)+1000;
+        System.out.println("Unknown----------------------" + randomPIN);
+
+
+        User user = new User();
+        user.setUsername("Unknown" + randomPIN);
+        user.setName("Unknown" + randomPIN); //name
+        user.setPassword(passwordEncoder.encode("Unknown"));
+        user.setNickname(user.getName()); // nickname -> default == name
+        user.setIsDeleted(false); // false == 회원
+        user.setBackgroundImageUrl("http://simpleicon.com/wp-content/uploads/account.png"); // dummy data
+        user.setProfileImageUrl("http://simpleicon.com/wp-content/uploads/account.png"); //  dummy data
+        user.setRole("ROLE_UNKNOWN"); // default role == ROLE_USER
+        user.setToken("token");
+        user.setPhoneNumber("Unknown");
+        user.setComments("covengers");
+        userRepository.save(user);
+
+
+        return userRepository.findByUsername(user.getUsername());
+    }
 }

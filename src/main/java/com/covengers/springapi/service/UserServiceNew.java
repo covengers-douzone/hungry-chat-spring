@@ -13,4 +13,5 @@ public interface UserServiceNew {
    String findByNameAndPhoneNumber(String name, String phonenumber);
    User findByPhoneNumber(String phoneNumber);
    Long getNo(String username);
+   User saveUnknownUser();
 }
