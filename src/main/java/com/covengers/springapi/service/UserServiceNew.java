@@ -10,7 +10,7 @@ public interface UserServiceNew {
    void addTokenToUser(String username, String token);
    User getUser(String username);
    Boolean pwUpdate(User user);
-
+   Boolean userActivation(User user);
    String findByNameAndPhoneNumber(String name, String phonenumber);
 
    User findByPhoneNumber(String phoneNumber);

@@ -1,10 +1,12 @@
 package com.covengers.springapi.service;
 
 
+import com.covengers.springapi.dto.JsonResult;
 import com.covengers.springapi.model.User;
 import com.covengers.springapi.repo.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -35,10 +37,12 @@ public class UserServiceNewImpl implements  UserServiceNew, UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByUsername(username);
+
         if(user == null){
             log.error("User not found in the database");
             throw new UsernameNotFoundException("User not found");
-        } else{
+        }
+        else{
             log.info("User found in the database:{}", username);
         }
         Collection<GrantedAuthority> authorities = new ArrayList<>();
@@ -78,6 +82,14 @@ public class UserServiceNewImpl implements  UserServiceNew, UserDetailsService {
         System.out.println("rawPassword: " + rawPassword);
         user.setPassword(passwordEncoder.encode(data.getPassword()));
         userRepository.save(user);
+        return true;
+    }
+
+    @Override
+    public Boolean userActivation(User user) {
+        User userinfo = userRepository.findByUsername(user.getUsername());
+        userinfo.setIsDeleted(false);
+        userRepository.save(userinfo);
         return true;
     }
 
