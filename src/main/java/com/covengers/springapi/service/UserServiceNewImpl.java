@@ -117,8 +117,8 @@ public class UserServiceNewImpl implements  UserServiceNew, UserDetailsService {
 
 
         User user = new User();
-        user.setUsername("Unknown" + randomPIN);
-        user.setName("Unknown" + randomPIN); //name
+        user.setUsername("Unknown " + randomPIN);
+        user.setName("Unknown " + randomPIN); //name
         user.setPassword(passwordEncoder.encode("Unknown"));
         user.setNickname(user.getName()); // nickname -> default == name
         user.setIsDeleted(false); // false == 회원
