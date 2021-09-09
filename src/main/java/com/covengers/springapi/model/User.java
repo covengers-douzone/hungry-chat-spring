@@ -43,6 +43,8 @@ public class User {
     @CreationTimestamp
     private Date createdAt;
     private Date lastLoginAt;
+    @NotNull
+    private String comments;
 
 //    public List<String> getRoleList(){
 //        if(this.role.length() > 0){
