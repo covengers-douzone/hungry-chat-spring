@@ -146,6 +146,7 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
         token.put("username", user.getUsername());
         token.put("no",serviceBean.getNo(user.getUsername()).toString());
         token.put("name",serviceBean.getUser(user.getUsername()).getName());
+
         response.setContentType("application/json"); //json 형태로 보내기
         new ObjectMapper().writeValue(response.getOutputStream(), token);
     }

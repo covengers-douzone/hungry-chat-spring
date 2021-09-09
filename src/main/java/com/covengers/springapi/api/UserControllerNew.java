@@ -66,7 +66,7 @@ public class UserControllerNew {
     }
 
     @PostMapping("/passwordupdate")
-    ResponseEntity<?> userPasswordUpdate(@RequestBody User data)throws Exception {
+    ResponseEntity<?> userPasswordUpdate(@RequestBody User data) throws Exception {
 
         Boolean result = userServiceNew.pwUpdate(data);
         if(result){
