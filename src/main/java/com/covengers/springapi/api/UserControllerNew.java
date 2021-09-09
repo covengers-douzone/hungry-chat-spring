@@ -3,15 +3,18 @@ package com.covengers.springapi.api;
 import com.covengers.springapi.dto.JsonResult;
 import com.covengers.springapi.dto.Sms;
 import com.covengers.springapi.model.User;
+import com.covengers.springapi.repo.UserRepository;
 import com.covengers.springapi.service.SmsService;
 import com.covengers.springapi.service.UserServiceNew;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.collections.map.HashedMap;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.web.bind.annotation.*;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+
+import java.util.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -23,6 +26,19 @@ public class UserControllerNew {
     @GetMapping("/users")
     ResponseEntity<List<User>> getUsers(){
         return ResponseEntity.ok().body(userServiceNew.getUsers());
+    }
+
+    @PostMapping("/activation")
+    public ResponseEntity<?> activation(@RequestBody User user){
+         User userinfo = userServiceNew.getUser(user.getUsername());
+
+         if(userinfo.getIsDeleted() == true){
+            return ResponseEntity.ok().body(new JsonResult(userinfo.getIsDeleted()));
+         }else if (userinfo.getIsDeleted() == false){
+             return ResponseEntity.ok().body(new JsonResult(userinfo.getIsDeleted()));
+         }
+
+        return ResponseEntity.badRequest().body(new JsonResult("이미 존재하는 아이디입니다.", 400));
     }
 
     @PostMapping("/join")
@@ -58,12 +74,24 @@ public class UserControllerNew {
     @PostMapping("/useridsearch")
     ResponseEntity<?> userIdSearch(@RequestBody User user)throws Exception {
         System.out.println("userinfo: "+userServiceNew.findByNameAndPhoneNumber(user.getName(), user.getPhoneNumber()));
-
         Map<String, String> map = new HashMap<>();
         map.put("username", userServiceNew.findByNameAndPhoneNumber(user.getName(), user.getPhoneNumber()));
         System.out.println("map: " + map);
         return new ResponseEntity<>(map, HttpStatus.OK);
     }
+
+    @PostMapping("/useractivation")
+    ResponseEntity<?> userActiovation(@RequestBody User user)throws Exception {
+        Map<String, String> map = new HashMap<>();
+        map.put("username", userServiceNew.findByNameAndPhoneNumber(user.getName(), user.getPhoneNumber()));
+
+        Boolean result = userServiceNew.userActivation(user);
+        if(result){
+            return new ResponseEntity<>(map, HttpStatus.OK);
+        }
+        return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE).body(new JsonResult("잠시후 다시 시도해 주세요.", 500));
+    }
+
 
     @PostMapping("/passwordupdate")
     ResponseEntity<?> userPasswordUpdate(@RequestBody User data) throws Exception {
