@@ -80,7 +80,7 @@ public class UserControllerNew {
         return new ResponseEntity<>(map, HttpStatus.OK);
     }
 
-    @PostMapping("/useractivation")
+    @PostMapping("/user/activation")
     ResponseEntity<?> userActiovation(@RequestBody User user)throws Exception {
         Map<String, String> map = new HashMap<>();
         map.put("username", userServiceNew.findByNameAndPhoneNumber(user.getName(), user.getPhoneNumber()));

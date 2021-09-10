@@ -96,7 +96,7 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
         UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(username, password);
 
         // credential 를 만들어서 유저를 인증해줄 수 있게 authentiacationManager를 호출.
-        // 인증서로 만들어진(logging시도시에 받아온 username, password로 만들어진) token을 주면서 이 토큰은 인증된 토큰이다라고 말하는것.
+        // 인증서로 만들어진(log in 시도시에 받아온 username, password로 만들어진) token을 주면서 이 토큰은 인증된 토큰이다라고 말하는것.
         // 여기서 받아온 데이터를 Json 객체로 바꿔 body에 보내주기 위해서는 request를 ObjectMapper를 사용해 변환후 보내주는 방법이 있다.
         // attemptAuthentication 이 실패하게 되면 spring은 speed out of the user, 시간 초과 발생 시킨다.
         // 성공시에는 successfulAuthentication으로
@@ -106,6 +106,7 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
 
+        log.info("successfulAuthentication 작동");
         // 1. 토큰 생성
         // 2. 토큰 보내기
         // 3. 헤더 혹은 바디에 데이터를 담아서 보내야한다. (response로)
@@ -132,7 +133,7 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
 
         ApplicationContext applicationContext = ApplicationContextProvider.getApplicationContext();
         UserServiceNewImpl serviceBean = applicationContext.getBean("userServiceNewImpl", UserServiceNewImpl.class);
-        System.out.println(serviceBean.getUser(user.getUsername()));
+        System.out.println("ServiceBean : " + serviceBean.getUser(user.getUsername()));
         serviceBean.addTokenToUser(user.getUsername(), access_token);
 
         // Header 로 보내기
