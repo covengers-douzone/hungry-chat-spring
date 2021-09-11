@@ -141,13 +141,15 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
         //response.setHeader("access_token", access_token);
         // response.setHeader("refresh_token", access_token);
 
+        com.covengers.springapi.model.User myUser = serviceBean.getUser(user.getUsername());
         // Body 로 보내기
+        System.out.println("user.getAuthorities()"+ user.getAuthorities());
         Map<String, String> token = new HashMap<>();
         token.put("Authorization", "Bearer "+access_token);
         token.put("username", user.getUsername());
         token.put("no",serviceBean.getNo(user.getUsername()).toString());
         token.put("name",serviceBean.getUser(user.getUsername()).getName());
-
+        token.put("role",(myUser.getRole()));
         response.setContentType("application/json"); //json 형태로 보내기
         new ObjectMapper().writeValue(response.getOutputStream(), token);
     }
