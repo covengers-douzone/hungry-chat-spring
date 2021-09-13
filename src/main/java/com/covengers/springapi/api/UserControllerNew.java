@@ -79,8 +79,8 @@ public class UserControllerNew {
         System.out.println("map: " + map);
         return new ResponseEntity<>(map, HttpStatus.OK);
     }
-
-    @PostMapping("/user/activation")
+//
+    @PostMapping("/useractivation")
     ResponseEntity<?> userActiovation(@RequestBody User user)throws Exception {
         Map<String, String> map = new HashMap<>();
         map.put("username", userServiceNew.findByNameAndPhoneNumber(user.getName(), user.getPhoneNumber()));
