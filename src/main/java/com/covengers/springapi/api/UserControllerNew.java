@@ -3,15 +3,11 @@ package com.covengers.springapi.api;
 import com.covengers.springapi.dto.JsonResult;
 import com.covengers.springapi.dto.Sms;
 import com.covengers.springapi.model.User;
-import com.covengers.springapi.repo.UserRepository;
 import com.covengers.springapi.service.SmsService;
 import com.covengers.springapi.service.UserServiceNew;
 import lombok.RequiredArgsConstructor;
-import org.apache.commons.collections.map.HashedMap;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
@@ -30,11 +26,11 @@ public class UserControllerNew {
 
     @PostMapping("/activation")
     public ResponseEntity<?> activation(@RequestBody User user){
-         User userinfo = userServiceNew.getUser(user.getUsername());
-         if(userinfo == null){
+        User userinfo = userServiceNew.getUserAndPassword(user.getUsername(), user.getPassword());
+         if(userinfo == null) {
              return ResponseEntity.badRequest().body(new JsonResult("사용자를 조회할 수 없습니다. 다시 확인해주세요."));
          }
-         return ResponseEntity.ok().body(new JsonResult(userinfo.getIsDeleted()));
+             return ResponseEntity.ok().body(new JsonResult(userinfo.getIsDeleted()));
     }
 
     @PostMapping("/join")
@@ -75,7 +71,7 @@ public class UserControllerNew {
         System.out.println("map: " + map);
         return new ResponseEntity<>(map, HttpStatus.OK);
     }
-//
+
     @PostMapping("/useractivation")
     ResponseEntity<?> userActiovation(@RequestBody User user)throws Exception {
         Map<String, String> map = new HashMap<>();
