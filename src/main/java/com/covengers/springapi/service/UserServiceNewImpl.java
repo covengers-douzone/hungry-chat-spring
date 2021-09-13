@@ -101,6 +101,7 @@ public class UserServiceNewImpl implements  UserServiceNew, UserDetailsService {
     @Override
     public Boolean userActivation(User user) {
         User userinfo = userRepository.findByUsername(user.getUsername());
+
         userinfo.setIsDeleted(false);
         userRepository.save(userinfo);
         return true;
