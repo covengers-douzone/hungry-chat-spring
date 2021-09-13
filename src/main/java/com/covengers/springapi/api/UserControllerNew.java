@@ -31,14 +31,10 @@ public class UserControllerNew {
     @PostMapping("/activation")
     public ResponseEntity<?> activation(@RequestBody User user){
          User userinfo = userServiceNew.getUser(user.getUsername());
-
-         if(userinfo.getIsDeleted() == true){
-            return ResponseEntity.ok().body(new JsonResult(userinfo.getIsDeleted()));
-         }else if (userinfo.getIsDeleted() == false){
-             return ResponseEntity.ok().body(new JsonResult(userinfo.getIsDeleted()));
+         if(userinfo == null){
+             return ResponseEntity.badRequest().body(new JsonResult("사용자를 조회할 수 없습니다. 다시 확인해주세요."));
          }
-
-        return ResponseEntity.badRequest().body(new JsonResult("이미 존재하는 아이디입니다.", 400));
+         return ResponseEntity.ok().body(new JsonResult(userinfo.getIsDeleted()));
     }
 
     @PostMapping("/join")
