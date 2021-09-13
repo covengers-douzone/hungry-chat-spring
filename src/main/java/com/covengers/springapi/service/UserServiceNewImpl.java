@@ -78,14 +78,14 @@ public class UserServiceNewImpl implements  UserServiceNew, UserDetailsService {
 
     @Override
     public User getUserAndPassword(String username, String password) {
-        log.info("Fetching one user {}", username, password);
+        log.info("Finding one user {}", username, password);
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
         User user = userRepository.findByUsername(username);
 
         if(bCryptPasswordEncoder.matches(password,user.getPassword())){
             return userRepository.findByUsernameAndPassword(username, user.getPassword());
         }
-        return userRepository.findByUsernameAndPassword(username, password);
+        return null;
     }
 
     @Override
