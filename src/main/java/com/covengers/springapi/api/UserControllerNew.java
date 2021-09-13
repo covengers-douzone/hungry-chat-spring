@@ -30,8 +30,9 @@ public class UserControllerNew {
 
     @PostMapping("/activation")
     public ResponseEntity<?> activation(@RequestBody User user){
-         User userinfo = userServiceNew.getUser(user.getUsername());
+         User userinfo = userServiceNew.getUserAndPassword(user.getUsername(), user.getPassword());
 
+        System.out.println("Userinfo:  " + userinfo);
          if(userinfo.getIsDeleted() == true){
             return ResponseEntity.ok().body(new JsonResult(userinfo.getIsDeleted()));
          }else if (userinfo.getIsDeleted() == false){
@@ -80,7 +81,7 @@ public class UserControllerNew {
         return new ResponseEntity<>(map, HttpStatus.OK);
     }
 
-    @PostMapping("/user/activation")
+    @PostMapping("/useractivation")
     ResponseEntity<?> userActiovation(@RequestBody User user)throws Exception {
         Map<String, String> map = new HashMap<>();
         map.put("username", userServiceNew.findByNameAndPhoneNumber(user.getName(), user.getPhoneNumber()));
