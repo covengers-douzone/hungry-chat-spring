@@ -16,13 +16,13 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 public class SwaggerConfig {
 
     private static final String API_NAME = "Chat API";
-    private static final String API_VERSION = "0.0.1";
-    private static final String API_DESCRIPTION = "Chat API 명세서";
-
+    private static final String API_VERSION = "1.0.1";
+    private static final String API_DESCRIPTION = "<h3>CHAT API Reference for Developers</h3> Swagger를 이용한 CHAT API by covengers <br><br>" + "\n" ;
 
     public ApiInfo apiInfo() {
         return new ApiInfoBuilder()
                 .title(API_NAME)
+                .version(API_VERSION)
                 .description(API_DESCRIPTION)
                 .build();
     }
