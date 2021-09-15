@@ -1,12 +1,10 @@
 package com.covengers.springapi.service;
 
 
-import com.covengers.springapi.dto.JsonResult;
 import com.covengers.springapi.model.User;
 import com.covengers.springapi.repo.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
