@@ -11,8 +11,10 @@ spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/chat?serverTimezone=Asia/Seoul
-    username: root
-    password: 484257sjh
+    username: chat
+    password: chat
+#    username: root
+#    password: 484257sjh
 
   jpa:
     hibernate:
