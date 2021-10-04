@@ -41,6 +41,13 @@ public class SpringApiApplication {
 //            userServiceNew.saveUser(new User(null, "covengers@gmail.com", "covengers", "1111", "covengers", false, "http://simpleicon.com/wp-content/uploads/account.png", "http://simpleicon.com/wp-content/uploads/account.png", "ROLE_USER", "token", "01037362957", date, date, "covengers"));
 //            userServiceNew.saveUser(new User(null, "yummy@gmail.com", "yummy", "1111", "yummy", false, "http://simpleicon.com/wp-content/uploads/account.png", "http://simpleicon.com/wp-content/uploads/account.png", "ROLE_USER", "token", "01037368946", date, date, "covengers"));
 //
+//
 //        };
 //    }
 }
+
+
+// userServiceNew.saveUser(new User(null, "cap@gmail.com", "Ketchup America", "1111", "Ketchup America", false, "https://t1.daumcdn.net/news/202105/21/pnn/20210521171800076keuh.jpg", "https://t1.daumcdn.net/news/202105/21/pnn/20210521171800076keuh.jpg", "ROLE_USER", "token", "01077777777", date, date, "covengers"));
+// userServiceNew.saveUser(new User(null, "dr@gmail.com", "Dr.Stranger", "1111", "Dr.Stranger", false, "https://sm.ign.com/t/ign_kr/screenshot/default/dagseu_g92p.2560.jpg", "https://sm.ign.com/t/ign_kr/screenshot/default/dagseu_g92p.2560.jpg", "ROLE_USER", "token", "01077777777", date, date, "covengers"));
+// userServiceNew.saveUser(new User(null, "hulk@gmail.com", "Green monster", "1111", "Green monster", false, "https://img.huffingtonpost.com/asset/5d7f3e61230000580554f916.jpeg?cache=vsNYzmVNEQ&ops=scalefit_630_noupscale", "https://img.huffingtonpost.com/asset/5d7f3e61230000580554f916.jpeg?cache=vsNYzmVNEQ&ops=scalefit_630_noupscale", "ROLE_USER", "token", "01077777777", date, date, "covengers"));
+// userServiceNew.saveUser(new User(null, "thor@gmail.com", "Static electricity", "1111", "Static electricity", false, "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTXc6RCrbXnX0I1pJtWuCFkxmInSi1ViqlHzg&usqp=CAU","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTXc6RCrbXnX0I1pJtWuCFkxmInSi1ViqlHzg&usqp=CAU", "ROLE_USER", "token", "01077777777", date, date, "covengers"));
