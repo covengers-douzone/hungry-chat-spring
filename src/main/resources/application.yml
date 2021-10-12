@@ -10,12 +10,12 @@ server:
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-#    url: jdbc:mysql://localhost:3306/chat?serverTimezone=Asia/Seoul
-#    username: chat
-#    password: chat
-    url: jdbc:mysql://18.190.53.4:3306/covengers?serverTimezone=Asia/Seoul
-    username: root
-    password: zhqpswutm400vkdlxldA!
+    url: jdbc:mysql://127.0.0.1:3306/chat?serverTimezone=Asia/Seoul
+    username: chat
+    password: chat
+#    url: jdbc:mysql://18.190.53.4:3306/covengers?serverTimezone=Asia/Seoul
+#    username: root
+#    password: zhqpswutm400vkdlxldA!
 
 
   jpa:
