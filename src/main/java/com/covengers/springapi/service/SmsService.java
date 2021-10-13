@@ -15,15 +15,15 @@ public class SmsService{
 
     public Boolean sms(Sms sms) throws Exception {
 
-        String api_key = "NCSJE8ENSCWI5RUP";
-        String api_secret = "HUS057HKD7IQ1UG79HTEWJN0QU3RQJR2";
+        String api_key = "NCSRZPWQB9FFIWJR";
+        String api_secret = "SUHXEHWWLXVQDV7FVKQUQYXBOWJVWPYD";
 
 //        Coolsms coolsms = new Coolsms(api_key, api_secret);
         Message coolsms = new Message(api_key, api_secret);
 
         HashMap<String, String> params = new HashMap<String, String>();
         params.put("to", sms.getRecipients());
-        params.put("from", "01057289028");
+        params.put("from", "01074980731");
         params.put("type", "SMS");
         params.put("text", "Covengers! 인증번호는 " + sms.getText() + " 입니다.");
         params.put("app_version", "test app 1.2"); // application name and version
