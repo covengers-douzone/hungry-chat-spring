@@ -40,3 +40,8 @@ JSON Web Token 발행
 6. 토큰값이 일치하다면 인증 처리, 일치하지 않을 경우 로그인 페이지로 리다이렉션
 7. 토큰의 만료 시간을 조회, 만료 시간에 도달했다면 마찬가지로 로그인 페이지로 리다이렉션 
 
+## API
+
+* Swagger 사용 : [http://localhost:8888/swagger-ui.html](http://localhost:8888/swagger-ui.html)
+
+<img src="./docs/image/springAPI.PNG" />
