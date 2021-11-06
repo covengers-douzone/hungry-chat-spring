@@ -1,5 +1,8 @@
 ## hungry-chat-spring
 
+* 회원가입 및 로그인 관련 API 위치
+* JWT Web Token 발행
+
 ### spring boot API & JWT 
 
 
